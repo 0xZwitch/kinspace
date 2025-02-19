@@ -15,7 +15,12 @@ declare_id!("5F771jf2aRUjedimPbXZEVXTTRfXv4yh5gEdbvqTgG7A");
 pub mod kinspace {
     use super::*;
 
-    pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
-        initialize::handler(ctx)
+    pub fn initialize(
+        ctx: Context<Initialize>,
+        seed: u64,
+        withdraw_fee: u16,
+        authority: Option<Pubkey>,
+    ) -> Result<()> {
+        ctx.accounts.init(ctx.bumps, seed, withdraw_fee, authority)
     }
 }
