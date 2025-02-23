@@ -1,4 +1,5 @@
 use anchor_lang::prelude::*;
+use anchor_spl::token_interface::TokenInterface;
 
 use crate::state::*;
 
@@ -10,11 +11,11 @@ pub struct Initialize<'info> {
     #[account(
         init,
         payer = initializer,
-        space = Config::INIT_SPACE, 
+        space = 8 + Config::INIT_SPACE, 
         seeds = [b"config", seed.to_le_bytes().as_ref()], 
         bump
     )]
-    pub config : Account<'info, Config>,
+    pub config: Account<'info, Config>,
     #[account(
         seeds = [b"treasury", config.key().as_ref()], 
         bump

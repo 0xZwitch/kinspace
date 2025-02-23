@@ -23,4 +23,16 @@ pub mod kinspace {
     ) -> Result<()> {
         ctx.accounts.init(ctx.bumps, seed, withdraw_fee, authority)
     }
+
+    pub fn create_space(
+        ctx: Context<CreateSpace>,
+        name: String,
+        description: String,
+    ) -> Result<()> {
+        ctx.accounts.init_space(name, description, ctx.bumps)
+    }
+
+    pub fn mint_membership(ctx: Context<MintMembership>, membership_mint: Pubkey) -> Result<()> {
+        ctx.accounts.mint_membership(membership_mint)
+    }
 }

@@ -10,5 +10,5 @@ pub struct Config {
 }
 
 impl Space for Config {
-    const INIT_SPACE: usize = 8 + 8 + (1 + 32) + 2 + 1 + 1;
+    const INIT_SPACE: usize = 8 + (1 + 32) + 2 + 1 + 1;
 }
