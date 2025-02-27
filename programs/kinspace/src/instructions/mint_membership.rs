@@ -9,8 +9,8 @@ pub struct MintMembership<'info> {
     pub creator: Signer<'info>,
     #[account(
       mut,
-        seeds = [b"space", creator.key().as_ref(), space_account.name.as_bytes()],
-        bump = space_account.bump,
+      seeds = [b"space", creator.key().as_ref(), space_account.name.as_bytes()],
+      bump = space_account.bump,
     )]
     pub space_account: Account<'info, SpaceAccount>,
     pub system_program: Program<'info, System>,
