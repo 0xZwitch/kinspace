@@ -1,5 +1,5 @@
 use anchor_lang::prelude::*;
-use anchor_spl::token_interface::TokenInterface;
+// use anchor_spl::token_interface::TokenInterface;
 
 use crate::error::ErrorCode;
 use crate::state::*;
@@ -22,7 +22,7 @@ pub struct CreateSpace<'info> {
         bump,
     )]
     pub space_treasury: SystemAccount<'info>,
-    pub token_program: Interface<'info, TokenInterface>,
+    // pub token_program: Interface<'info, TokenInterface>,
     pub system_program: Program<'info, System>,
 }
 

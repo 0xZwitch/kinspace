@@ -15,7 +15,6 @@ pub struct VerifyMembership<'info> {
          constraint = membership_token.amount >= 1,
     )]
     pub membership_token: Account<'info, TokenAccount>,
-    pub metadata_account: AccountInfo<'info>,
     pub token_program: Program<'info, Token>,
 }
 
