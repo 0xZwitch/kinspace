@@ -11,22 +11,20 @@ const WalletMultiButtonDynamic = dynamic(
 
 export default function Header() {
   return (
-    <header className="">
-      <div className="flex items-center justify-between h-24 px-8">
-        <Image
-          className="dark:invert"
-          src="/kinspace.svg"
-          alt="Kinspace logo"
-          width={187}
-          height={36}
-          priority
-        />
-        <div className="flex items-center space-x-4">
-          <WalletMultiButtonDynamic style={{ borderRadius: 1 }} />
-          <ModeToggle />
-        </div>
+    <div className="flex items-center justify-between h-16 px-8">
+      <Image
+        className="dark:invert"
+        src="/kinspace.svg"
+        alt="Kinspace logo"
+        width={187}
+        height={36}
+        priority
+      />
+      <div className="flex items-center space-x-4">
+        <WalletMultiButtonDynamic style={{ borderRadius: 1 }} />
+        <ModeToggle />
       </div>
-    </header>
+    </div>
   )
 }
 

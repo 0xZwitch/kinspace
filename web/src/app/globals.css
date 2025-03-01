@@ -130,4 +130,11 @@
 
 button.wallet-adapter-button {
   border-radius: calc(var(--radius) - 2px) !important;
-  height: calc(var(--spacing) * 9) !important;}
+  height: calc(var(--spacing) * 9) !important;
+}
+
+.sidebar-flat div {
+  border: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
