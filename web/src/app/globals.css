@@ -127,3 +127,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+button.wallet-adapter-button {
+  border-radius: calc(var(--radius) - 2px) !important;
+  height: calc(var(--spacing) * 9) !important;}
