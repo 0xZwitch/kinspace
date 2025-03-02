@@ -1,11 +1,28 @@
+"use client";
+
 import AppSidebar from '@/components/app-sidebar'
-import { Button, buttonVariants } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
 import { SidebarInset } from '@/components/ui/sidebar'
+import { useSpaceProgram } from '@/requests/space'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
 
 export default function Spacess() {
+  const { accounts, getProgramAccount } = useSpaceProgram();
+
+  if (getProgramAccount.isLoading) {
+    return <span className="loading loading-spinner loading-lg"></span>;
+  }
+  if (!getProgramAccount.data?.value) {
+    return (
+      <div className="flex justify-center alert alert-info">
+        <span>
+          Program account not found.
+        </span>
+      </div>
+    );
+  }
+
   return (
     <>
       <AppSidebar />
@@ -22,87 +39,35 @@ export default function Spacess() {
                 Create a Space
               </Link>
             </div>
-            <div className="grid grid-cols-3 gap-4 rounded-xl bg-muted/50 p-4">
-              <div className="bg-white rounded-xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-sm dark:bg-muted">
-                <div className="relative">
-                  <div className="relative h-56 w-full">
-                    <Image
-                      src="https://placehold.co/300x200.png"
-                      alt="Card image"
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 bg-white dark:bg-muted h-2/5 py-2 px-4">
-                    <h3 className="text-md font-semibold">Space Name</h3>
-                    <p className="text-sm text-muted-foreground">This is a description of the space.</p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-bold">$0.99</span>
-                      <Button variant={"link"} size={"sm"}>Buy Membership</Button>
+            <div className="grid grid-cols-3 gap-4 rounded-xl bg-muted/50 p-4 h-full">
+              {
+                accounts.isLoading ? (
+                  <span className="loading loading-spinner loading-lg"></span>
+                ) : accounts.data?.length ? (<>{accounts.data?.map((account) => (
+                  <div className="bg-white rounded-xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-sm dark:bg-muted cursor-pointer" key={account.publicKey.toString()}>
+                    <div className="relative">
+                      <div className="relative h-56 w-full">
+                        <Image
+                          src="https://placehold.co/300x200.png"
+                          alt="Card image"
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="absolute bottom-0 left-0 right-0 bg-white dark:bg-muted h-2/5 py-2 px-4">
+                        <h3 className="text-md font-semibold">{account.account.name}</h3>
+                        <p className="text-sm text-muted-foreground truncate">{account.account.description}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div className="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-sm dark:bg-muted">
-                <div className="relative">
-                  <div className="relative h-56 w-full">
-                    <Image
-                      src="https://placehold.co/300x200.png"
-                      alt="Card image"
-                      fill
-                      className="object-cover"
-                    />
+                ))}</>
+                ) : (
+                  <div className="text-center">
+                    <h2 className={"text-2xl"}>No space</h2>
+                    No space found. Create one to get started.
                   </div>
-                  <div className="absolute bottom-0 left-0 right-0 bg-white dark:bg-muted h-2/5 py-2 px-4">
-                    <h3 className="text-md font-semibold">Space Name</h3>
-                    <p className="text-sm text-muted-foreground">This is a description of the space.</p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-bold">$0.99</span>
-                      <Button variant={"link"} size={"sm"}>Buy</Button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-sm dark:bg-muted">
-                <div className="relative">
-                  <div className="relative h-56 w-full">
-                    <Image
-                      src="https://placehold.co/300x200.png"
-                      alt="Card image"
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 bg-white dark:bg-muted h-2/5 py-2 px-4">
-                    <h3 className="text-md font-semibold">Space Name</h3>
-                    <p className="text-sm text-muted-foreground">This is a description of the space.</p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-bold">$0.99</span>
-                      <Button variant={"link"} size={"sm"}>Buy</Button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-sm dark:bg-muted">
-                <div className="relative">
-                  <div className="relative h-56 w-full">
-                    <Image
-                      src="https://placehold.co/300x200.png"
-                      alt="Card image"
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 bg-white dark:bg-muted h-2/5 py-2 px-4">
-                    <h3 className="text-md font-semibold">Space Name</h3>
-                    <p className="text-sm text-muted-foreground">This is a description of the space.</p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-bold">$0.99</span>
-                      <Button variant={"link"} size={"sm"}>Buy</Button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                )
+              }
             </div>
           </div>
         </div>
