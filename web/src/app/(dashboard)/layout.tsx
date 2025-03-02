@@ -1,6 +1,7 @@
-import AppWalletProvider from "@/components/app-wallet-provider";
-import { SidebarProvider } from "@/components/ui/sidebar";
+import AppWalletProvider from "@/components/solana-provider";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import Header from "@/components/app-header";
+import AppSidebar from "@/components/app-sidebar";
 
 export default function Layout({
   children,
@@ -11,7 +12,10 @@ export default function Layout({
     <AppWalletProvider>
       <Header />
       <SidebarProvider>
-        {children}
+        <AppSidebar />
+        <SidebarInset>
+          {children}
+        </SidebarInset>
       </SidebarProvider>
     </AppWalletProvider>
   );

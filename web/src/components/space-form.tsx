@@ -1,19 +1,19 @@
 "use client";
 
-import { AnchorError, AnchorProvider, Program, setProvider, Wallet, web3 } from "@coral-xyz/anchor"
-import { useWallet, useConnection } from "@solana/wallet-adapter-react";
+import { AnchorError, web3 } from "@coral-xyz/anchor"
+import { useWallet } from "@solana/wallet-adapter-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { IDL_OBJECT, PROGRAM_ID } from "@/lib/state";
 import { z } from "zod";
 import { getSpaceAddress } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { Form, FormField, FormItem, FormControl, FormMessage, FormLabel } from "./ui/form";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
-import { Kinspace } from "@/lib/kinspace";
 import { toast } from "sonner"
 import { useRouter } from "next/navigation";
+import { useAnchorProvider } from "./solana-provider";
+import { getKinspaceProgram, KINSPACE_PROGRAM_ID } from "@/lib/exports";
 
 const spaceSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
@@ -23,9 +23,10 @@ const spaceSchema = z.object({
 type SpaceSchema = z.infer<typeof spaceSchema>;
 
 export default function SpaceForm() {
-  const router = useRouter()
-  const wallet = useWallet()
-  const { connection } = useConnection()
+  const router = useRouter();
+  const wallet = useWallet();
+  const provider = useAnchorProvider();
+  const program = getKinspaceProgram(provider);
 
   const form = useForm<SpaceSchema>({
     resolver: zodResolver(spaceSchema),
@@ -35,20 +36,12 @@ export default function SpaceForm() {
     },
   });
 
-  const getProvider = () => {
-    const provider = new AnchorProvider(connection, wallet as unknown as Wallet, AnchorProvider.defaultOptions())
-    setProvider(provider)
-    return provider
-  }
-
   const onSubmit = async (values: SpaceSchema) => {
     const { name, description } = values;
 
     try {
-      const anchorProvider = getProvider()
-      const program = new Program<Kinspace>(IDL_OBJECT, anchorProvider)
-      const creatorPubKey = anchorProvider.publicKey
-      const [spacePubKey] = getSpaceAddress(name, creatorPubKey, PROGRAM_ID)
+      const creatorPubKey = provider.publicKey
+      const [spacePubKey] = getSpaceAddress(name, creatorPubKey, KINSPACE_PROGRAM_ID)
 
       await program.methods.createSpace(name, description).accountsPartial({
         creator: creatorPubKey,

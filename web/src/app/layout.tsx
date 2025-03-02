@@ -39,6 +39,7 @@ export default function RootLayout({
           >
             {children}
             <Toaster />
+            <div className="text-sm text-center italic text-orange-400 pb-4">*** Currently under development ***</div>
           </ThemeProvider>
         </ReactQueryProvider>
       </body>

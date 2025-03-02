@@ -1,4 +1,4 @@
-import { Home, Users } from "lucide-react"
+import { FolderOpen, Home, Users } from "lucide-react"
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "./ui/sidebar"
 
 const items = [
@@ -9,14 +9,19 @@ const items = [
   },
   {
     title: "Spaces",
-    url: "spaces",
+    url: "/spaces",
     icon: Users,
+  },
+  {
+    title: "My Spaces",
+    url: "/my-spaces",
+    icon: FolderOpen,
   },
 ]
 
 export default function AppSidebar() {
   return (
-    <Sidebar className="absolute top-16 sidebar-flat pl-4 pt-2" variant="floating">
+    <Sidebar className="absolute top-16 sidebar-flat pl-4 pt-4" variant="floating">
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu>
