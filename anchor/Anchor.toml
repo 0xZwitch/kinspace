@@ -7,11 +7,14 @@ skip-lint = false
 [programs.localnet]
 kinspace = "5F771jf2aRUjedimPbXZEVXTTRfXv4yh5gEdbvqTgG7A"
 
+[programs.devnet]
+kinspace = "5F771jf2aRUjedimPbXZEVXTTRfXv4yh5gEdbvqTgG7A"
+
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Localnet"
+cluster = "Devnet"
 wallet = "wallet.json"
 
 [scripts]
