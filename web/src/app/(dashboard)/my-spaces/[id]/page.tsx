@@ -8,6 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 import { ArrowLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation';
 import { use } from 'react';
+import MintMembershipDialog from '@/components/mint-membership-dialog';
 
 export default function SpaceDetail({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -41,11 +42,12 @@ export default function SpaceDetail({ params }: { params: Promise<{ id: string }
             {data?.membershipMint.toString() === DEFAULT_PUBKEY ? (
               <div className="flex-col p-8">
                 <div className="text-sm text-wrap mb-4">This space does not have assigned membership mint yet. You need membership mint to invite others to your space.</div>
-                <Button variant="outline">Mint Now</Button>
+                <MintMembershipDialog spaceAddress={id} />
               </div>
             ) : (
-              <div className="flex-col">
-                <span>{data?.membershipMint.toString()}</span>
+              <div className="flex-col p-8">
+                <div className="text-sm font-bold">Membership Mint</div>
+                <div className="text-sm">{data?.membershipMint.toString()}</div>
               </div>
             )}
           </div>
