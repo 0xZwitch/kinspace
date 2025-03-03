@@ -1,7 +1,7 @@
 "use client";
 
-import { AnchorError, web3 } from "@coral-xyz/anchor"
-import { useWallet } from "@solana/wallet-adapter-react";
+import { AnchorError, AnchorProvider, web3 } from "@coral-xyz/anchor"
+import { AnchorWallet, useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -12,7 +12,6 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { toast } from "sonner"
 import { useRouter } from "next/navigation";
-import { useAnchorProvider } from "./solana-provider";
 import { getKinspaceProgram, KINSPACE_PROGRAM_ID } from "@/lib/exports";
 
 const spaceSchema = z.object({
@@ -25,7 +24,11 @@ type SpaceSchema = z.infer<typeof spaceSchema>;
 export default function SpaceForm() {
   const router = useRouter();
   const wallet = useWallet();
-  const provider = useAnchorProvider();
+  const { connection } = useConnection();
+
+  const provider = new AnchorProvider(connection, wallet as AnchorWallet, {
+    commitment: 'confirmed',
+  });
   const program = getKinspaceProgram(provider);
 
   const form = useForm<SpaceSchema>({

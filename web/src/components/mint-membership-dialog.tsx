@@ -2,7 +2,7 @@
 
 import { Button, buttonVariants } from './ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog'
-import { createNft, mplTokenMetadata } from '@metaplex-foundation/mpl-token-metadata'
+import { createV1, mplTokenMetadata, printSupply } from '@metaplex-foundation/mpl-token-metadata'
 import { createUmi } from "@metaplex-foundation/umi-bundle-defaults"
 import { walletAdapterIdentity } from '@metaplex-foundation/umi-signer-wallet-adapters';
 import { useWallet } from '@solana/wallet-adapter-react';
@@ -13,10 +13,10 @@ import { Textarea } from './ui/textarea';
 import { Input } from './ui/input';
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { useAnchorProvider } from './solana-provider';
 import { getKinspaceProgram } from '@/lib/exports';
 import { web3 } from '@coral-xyz/anchor';
 import { PublicKey } from '@solana/web3.js';
+import { useAnchorProvider } from './use-anchor-provider';
 import ImageUploader from './image-uploader';
 
 interface FormData {
@@ -114,12 +114,13 @@ export default function MintMembershipDialog({ spaceAddress }: { spaceAddress: s
         // TODO: handle error creating nft but succeed uploading metadata
         const mint = generateSigner(umi);
 
-        const tx = createNft(umi, {
+        const tx = createV1(umi, {
           mint,
           name: formData.name,
           symbol: formData.symbol,
           uri,
-          sellerFeeBasisPoints: percentAmount(2)
+          sellerFeeBasisPoints: percentAmount(2),
+          printSupply: printSupply('Limited', [50]),
         })
         await tx.sendAndConfirm(umi);
         mintAddress = mint.publicKey

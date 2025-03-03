@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/sonner";
 import ReactQueryProvider from "@/components/react-query-provider";
+import AppWalletProvider from "@/components/solana-provider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -30,18 +31,20 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ReactQueryProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-            <Toaster />
-            <div className="text-sm text-center italic text-orange-400 pb-4">*** Currently under development ***</div>
-          </ThemeProvider>
-        </ReactQueryProvider>
+        <AppWalletProvider>
+          <ReactQueryProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+              <Toaster />
+              <div className="text-sm text-center italic text-orange-400 pb-4">*** Currently under development ***</div>
+            </ThemeProvider>
+          </ReactQueryProvider>
+        </AppWalletProvider>
       </body>
     </html>
   );

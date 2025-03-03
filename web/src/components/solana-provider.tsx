@@ -2,10 +2,9 @@
 
 import React, { useMemo } from 'react'
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-import { AnchorWallet, ConnectionProvider, useConnection, useWallet, WalletProvider } from '@solana/wallet-adapter-react';
+import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { clusterApiUrl } from '@solana/web3.js';
-import { AnchorProvider } from '@coral-xyz/anchor';
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 require("@solana/wallet-adapter-react-ui/styles.css");
@@ -35,11 +34,3 @@ export default function AppWalletProvider({
   );
 }
 
-export function useAnchorProvider() {
-  const { connection } = useConnection();
-  const wallet = useWallet();
-
-  return new AnchorProvider(connection, wallet as AnchorWallet, {
-    commitment: 'confirmed',
-  });
-}

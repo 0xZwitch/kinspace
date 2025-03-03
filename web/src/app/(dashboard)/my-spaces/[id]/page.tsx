@@ -1,6 +1,6 @@
 "use client";
 
-import { useAnchorProvider } from '@/components/solana-provider';
+import { useAnchorProvider } from '@/components/use-anchor-provider';
 import { Button } from '@/components/ui/button'
 import { SidebarInset } from '@/components/ui/sidebar'
 import { DEFAULT_PUBKEY, getKinspaceProgram } from '@/lib/exports';

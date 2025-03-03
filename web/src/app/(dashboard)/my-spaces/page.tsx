@@ -1,7 +1,7 @@
 "use client";
 
 import Loader from '@/components/loader';
-import { useAnchorProvider } from '@/components/solana-provider';
+import { useAnchorProvider } from '@/components/use-anchor-provider';
 import { getKinspaceProgram } from '@/lib/exports';
 import { useKinspaceProgram } from '@/requests/space'
 import { useQuery } from '@tanstack/react-query';
@@ -60,7 +60,7 @@ export default function MySpaces() {
                 onClick={() => router.push(`my-spaces/${account.publicKey.toString()}`)}
               >
                 <div className="relative">
-                  <div className="relative h-56 w-full">
+                  <div className="relative h-64 w-full">
                     <Image
                       src="https://placehold.co/300x200.png"
                       alt="Card image"
