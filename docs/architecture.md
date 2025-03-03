@@ -1,6 +1,6 @@
-# Architecture Design
+## Architecture Design
 
-## Requirment
+### Requirment
 
 - The platform should allow user to create a space
 - The platform should allow user to mint membership NFT collection
@@ -15,7 +15,7 @@ Note:
 
 \*TBD
 
-### Overview
+#### Overview
 
 ```mermaid
 flowchart LR
@@ -47,7 +47,7 @@ D[User - Member] -. acquire print .-> C
 - User with authority can withdraw from treasury
 - Platform claim withdraw fee
 
-#### Accounts
+##### Accounts
 
 ```mermaid
 ---
@@ -55,8 +55,8 @@ title: Accounts
 ---
 classDiagram
     class Config {
-      + authority: Pubkey
-      + mint_fee: u16
+      + seed: u64
+      + authority: Option<Pubkey>
       + withdraw_fee: u16
       + treasury_bump: u8
       + bump: u8
@@ -67,13 +67,13 @@ classDiagram
         + name: String          // 32
         + description: String   // 256
         + membership_mint: Pubkey
-        + space_treasury_bump: u8
+        + treasury_bump: u8
         + bump: u8
     }
 
 ```
 
-#### Create Space
+##### Create Space
 
 ```mermaid
 flowchart
@@ -88,7 +88,7 @@ D --> F
 F --> G@{ shape: cross-circ }
 ```
 
-#### Join Space
+##### Join Space
 
 ```mermaid
 flowchart
@@ -102,7 +102,7 @@ D --> F
 F --> G@{ shape: cross-circ }
 ```
 
-#### Donate
+##### Donate
 
 ```mermaid
 flowchart
@@ -111,7 +111,7 @@ B --> C[Transfer to treasury]
 C --> D@{ shape: cross-circ }
 ```
 
-#### Withdraw
+##### Withdraw
 
 ```mermaid
 flowchart
