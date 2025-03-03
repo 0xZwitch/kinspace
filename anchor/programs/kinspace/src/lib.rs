@@ -9,7 +9,7 @@ pub use constants::*;
 pub use instructions::*;
 pub use state::*;
 
-declare_id!("5F771jf2aRUjedimPbXZEVXTTRfXv4yh5gEdbvqTgG7A");
+declare_id!("3Kwdi3kU4CMWwtYSgzKryrnMeku7frnd36tzV37F2DFj");
 
 #[program]
 pub mod kinspace {
